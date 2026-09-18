@@ -872,7 +872,7 @@ password:password.value
 };
 
 if(mode==='register')
-body.name=name.value.trim();
+body.name=document.getElementById('name').value.trim();
 
 
 let r=await fetch(
