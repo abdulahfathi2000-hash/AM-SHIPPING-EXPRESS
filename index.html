@@ -999,7 +999,8 @@ safe(d.user.customer_code)+
 '<br>详细地址: 迎宾大道688 浙江师范大学留学生公寓'+
 '<br>Code: '+
 safe(d.user.customer_code);
-
+chinaAddress.innerHTML +=
+  '<br><br><button type="button" onclick="copyChinaAddress()">📋 کۆپیکردنی ناونیشان</button>';
 dashboard.classList.add('show');
 
 
@@ -1445,7 +1446,15 @@ alert(
 
 
 loadMe();
+function copyChinaAddress(){
+  const text = chinaAddress.innerText
+    .replace('📋 کۆپیکردنی ناونیشان','')
+    .trim();
 
+  navigator.clipboard.writeText(text).then(() => {
+    alert('ناونیشان کۆپی کرا ✅');
+  });
+}
 </script>
 
 </body>
