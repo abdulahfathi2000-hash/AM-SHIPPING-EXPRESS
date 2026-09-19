@@ -350,6 +350,102 @@ grid-template-columns:1fr
 .visual{min-height:260px}
 
 }
+  /* ===== AM SHIPPING PROFESSIONAL DASHBOARD ===== */
+
+#dashboard .panel{
+  background:#ffffff;
+  border:1px solid #e7edf4;
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 12px 35px rgba(6,29,53,.08);
+}
+
+#dashboard #welcome{
+  font-size:28px;
+  font-weight:800;
+  color:#061d35;
+  margin-bottom:8px;
+}
+
+#dashboard #customerCode{
+  color:#64748b;
+  font-size:15px;
+  font-weight:600;
+}
+
+#dashboard .stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  overflow:visible;
+  margin:25px 0;
+}
+
+#dashboard .stat{
+  background:#f8fbff;
+  border:1px solid #e4edf7;
+  border-radius:16px;
+  padding:22px 15px;
+  text-align:center;
+  transition:.2s ease;
+}
+
+#dashboard .stat:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 22px rgba(7,95,171,.10);
+}
+
+#dashboard .stat b{
+  display:block;
+  font-size:28px;
+  font-weight:800;
+  color:#075fab;
+  margin-bottom:7px;
+}
+
+#dashboard .notice{
+  background:#eef7ff;
+  border:1px solid #d8eaff;
+  border-radius:14px;
+  padding:15px 18px;
+  color:#075fab;
+}
+
+#dashboard .shipment{
+  background:#fff;
+  border:1px solid #e5ebf2;
+  border-radius:16px;
+  padding:18px;
+  margin-top:14px;
+  box-shadow:0 5px 16px rgba(6,29,53,.05);
+}
+
+@media(max-width:800px){
+  #dashboard .panel{
+    padding:18px;
+    border-radius:18px;
+  }
+
+  #dashboard #welcome{
+    font-size:23px;
+  }
+
+  #dashboard .stats{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  #dashboard .stat{
+    padding:17px 8px;
+  }
+
+  #dashboard .stat b{
+    font-size:23px;
+  }
+}
 </style>
 </head>
 
