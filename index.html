@@ -319,7 +319,11 @@ line-height:1.8
 
 @media(max-width:800px){
 
-.links{display:none}
+.links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
 
 .heroGrid,.track,.foot{
 grid-template-columns:1fr
