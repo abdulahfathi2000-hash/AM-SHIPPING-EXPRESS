@@ -991,16 +991,19 @@ sh.map(shipHTML).join('')
 
 chinaAddress.innerHTML=
 
-'Customer: '+
-safe(d.user.customer_code)+
-'<br>收件人: Mohammed'+
-'<br>手机号码: 17280510705'+
-'<br>所在地区: 浙江省金华市婺城区新狮街道'+
-'<br>详细地址: 迎宾大道688 浙江师范大学留学生公寓'+
-'<br>Code: '+
-safe(d.user.customer_code);
+chinaAddress.innerHTML=
+  '<div style="font-size:17px;line-height:1.9;">'+
+  '<b>Customer: '+safe(d.user.customer_code)+'</b>'+
+  '<br>收件人: Mohammed'+
+  '<br>手机号码: 17280510705'+
+  '<br>所在地区: 浙江省金华市婺城区新狮街道'+
+  '<br>详细地址: 迎宾大道688 浙江师范大学留学生公寓'+
+  '<br><b>Code: '+safe(d.user.customer_code)+'</b>'+
+  '</div>';
+
 chinaAddress.innerHTML +=
-  '<br><br><button type="button" onclick="copyChinaAddress()">📋 کۆپیکردنی ناونیشان</button>';
+  '<br><button type="button" onclick="copyChinaAddress()">📋 کۆپیکردنی ناونیشان</button>';
+
 dashboard.classList.add('show');
 
 
