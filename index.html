@@ -1524,7 +1524,7 @@ async function editShipment(id){
   const cost = prompt('نرخی بار بە $:');
   if(cost === null) return;
 
-  const method = prompt('جۆری گواستنەوە بنووسە: Air یان Sea');
+  const method = prompt('جۆری گواستنەوە: Air یان Sea');
   if(method === null) return;
 
   const confirmed = confirm(
@@ -1560,7 +1560,6 @@ async function editShipment(id){
     alert('❌ پەیوەندی بە سێرڤەرەوە سەرکەوتوو نەبوو');
   }
 }
-
 async function deleteShipment(id){
 
 if(
