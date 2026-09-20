@@ -679,6 +679,7 @@ onclick="openAuth('login')">
 </h2>
 
 <div id="customerCode" class="sub"></div>
+  <div id="shippingMark" class="sub"></div>
 <div id="customerPhone" class="sub"></div>
 </div>
 
@@ -1117,7 +1118,9 @@ customerPhone.innerHTML=
 'ژمارەی مۆبایل: <b dir="ltr">' +
 safe(d.user.phone)+
 '</b>';
-
+shippingMark.innerHTML=
+'Shipping Mark: <b dir="ltr">' +
+safe(d.user.customer_code)+'</b>';
 totalShip.textContent=
 sh.length;
 
