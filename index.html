@@ -1223,7 +1223,14 @@ ${Number(s.cost||0).toFixed(2)}
 </p>
 
 <small>
-${safe(s.updated_at)}
+${new Date(s.updated_at).toLocaleString('en-GB', {
+  timeZone: 'Asia/Baghdad',
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+})}
 </small>
 
 </div>
