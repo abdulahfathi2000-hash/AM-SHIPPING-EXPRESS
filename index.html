@@ -1515,36 +1515,49 @@ await loadMe();
 
 async function editShipment(id){
 
-  let status = prompt('دۆخی نوێی بار بنووسە:');
+  const status = prompt('دۆخی نوێی بار بنووسە:');
   if(status === null) return;
 
-  let weight = prompt('کێشی بار بە KG:');
+  const weight = prompt('کێشی بار بە KG:');
   if(weight === null) return;
 
-  let cost = prompt('نرخی بار بە $:');
+  const cost = prompt('نرخی بار بە $:');
   if(cost === null) return;
 
-  let method = prompt('جۆری گواستنەوە بنووسە: Air یان Sea');
+  const method = prompt('جۆری گواستنەوە بنووسە: Air یان Sea');
   if(method === null) return;
 
-  let r = await fetch('/api/admin/shipments/' + id, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      status,
-      weight: Number(weight) || 0,
-      cost: Number(cost) || 0,
-      method
-    })
-  });
+  const confirmed = confirm(
+    'دڵنیایت لە نوێکردنەوەی زانیارییەکانی ئەم بارە؟'
+  );
 
-  if(r.ok){
-    await loadAdmin();
-    await loadMe();
-  }else{
-    alert('نەتوانرا بارەکە دەستکاری بکرێت');
+  if(!confirmed) return;
+
+  try{
+
+    const r = await fetch('/api/admin/shipments/' + id,{
+      method:'PUT',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        status: status.trim(),
+        weight: Number(weight) || 0,
+        cost: Number(cost) || 0,
+        method: method.trim()
+      })
+    });
+
+    if(r.ok){
+      alert('✅ زانیارییەکانی بار بە سەرکەوتوویی نوێکرانەوە');
+      await loadAdmin();
+      await loadMe();
+    }else{
+      alert('❌ هەڵەیەک ڕوویدا، تکایە دووبارە هەوڵ بدەوە');
+    }
+
+  }catch(error){
+    alert('❌ پەیوەندی بە سێرڤەرەوە سەرکەوتوو نەبوو');
   }
 }
 
