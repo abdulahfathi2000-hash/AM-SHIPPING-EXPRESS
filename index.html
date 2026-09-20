@@ -679,7 +679,7 @@ onclick="openAuth('login')">
 </h2>
 
 <div id="customerCode" class="sub"></div>
-
+<div id="customerPhone" class="sub"></div>
 </div>
 
 <button
@@ -1113,7 +1113,10 @@ customerCode.innerHTML=
 'کۆدی کڕیار: <b dir="ltr">'+
 safe(d.user.customer_code)+
 '</b>';
-
+customerPhone.innerHTML=
+'ژمارەی مۆبایل: <b dir="ltr">' +
+safe(d.user.phone)+
+'</b>';
 
 totalShip.textContent=
 sh.length;
