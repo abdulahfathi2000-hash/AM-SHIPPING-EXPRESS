@@ -68,6 +68,15 @@ async function initDatabase() {
     );
   `);
 
+  await db.query(`
+  CREATE TABLE IF NOT EXISTS notifications (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+`);
   const adminPhone = '07507028898';
 
   const existing = await db.query(
@@ -258,7 +267,22 @@ app.get('/api/me', auth, async (req, res) => {
   }
 });
 
+app.get('/api/notifications', auth, async (req, res) => {
+  try {
+    const result = await db.query(
+      `SELECT id, message, is_read, created_at
+       FROM notifications
+       WHERE user_id=$1
+       ORDER BY id DESC`,
+      [req.session.uid]
+    );
 
+    res.json(result.rows);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'هەڵەی سێرڤەر' });
+  }
+});
 app.post('/api/change-password', auth, async (req, res) => {
   try {
     const currentPassword = String(req.body.currentPassword || '');
@@ -483,7 +507,20 @@ app.put('/api/admin/shipments/:id', auth, admin, async (req, res) => {
       method || old.method,
       req.params.id
     ]);
+]);
 
+if (status && status !== old.status) {
+  await db.query(
+    `INSERT INTO notifications (user_id, message)
+     VALUES ($1, $2)`,
+    [
+      user_id || old.user_id,
+      `دۆخی بارەکەت (${tracking || old.tracking}) گۆڕا بۆ: ${status}`
+    ]
+  );
+}
+
+res.json({ ok: true });
     res.json({ ok: true });
 
   } catch (e) {
