@@ -446,9 +446,55 @@ grid-template-columns:1fr
     font-size:23px;
   }
 }
+/* Tracking Steps */
+.trackingBox{
+  margin-top:18px;
+  padding:20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+.trackSteps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.trackStep{
+  text-align:center;
+  padding:14px 8px;
+  background:#f4f8ff;
+  border-radius:14px;
+  font-size:14px;
+}
+
+.trackStep span{
+  width:34px;
+  height:34px;
+  margin:0 auto 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#075fab;
+  color:white;
+  font-weight:bold;
+}
+
+.trackStep b{
+  display:block;
+}
+
+@media(max-width:600px){
+  .trackSteps{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
 </style>
 </head>
-
+  
 <body>
 
 <section class="hero">
@@ -675,7 +721,31 @@ onclick="logout()">
 <h3>📦 بارەکانی من</h3>
 
 <div id="myShipments"></div>
+<div class="trackingTimeline">
+  <h3>🚚 دۆخی گواستنەوە</h3>
 
+  <div class="trackSteps">
+    <div class="trackStep active">
+      <span>✓</span>
+      <b>وەرگیرا لە چین</b>
+    </div>
+
+    <div class="trackStep">
+      <span>2</span>
+      <b>لە گواستنەوەدایە</b>
+    </div>
+
+    <div class="trackStep">
+      <span>3</span>
+      <b>گەیشتە کوردستان</b>
+    </div>
+
+    <div class="trackStep">
+      <span>4</span>
+      <b>تەسلیم کرا</b>
+    </div>
+  </div>
+</div>
 
 <h3>🇨🇳 ناونیشانی تایبەتی چین</h3>
 
