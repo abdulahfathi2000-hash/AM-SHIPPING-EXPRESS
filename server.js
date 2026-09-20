@@ -507,7 +507,6 @@ app.put('/api/admin/shipments/:id', auth, admin, async (req, res) => {
       method || old.method,
       req.params.id
     ]);
-]);
 
 if (status && status !== old.status) {
   await db.query(
