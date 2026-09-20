@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const { Pool } = require('pg');
+const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 
 const app = express();
@@ -16,6 +17,10 @@ const db = new Pool({
 app.use(express.json());
 
 app.use(session({
+store: new pgSession({
+  pool: db,
+  createTableIfMissing: true
+}),
   secret: process.env.SESSION_SECRET || 'change-this-secret-in-production',
   resave: false,
   saveUninitialized: false,
