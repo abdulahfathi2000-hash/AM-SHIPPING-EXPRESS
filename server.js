@@ -520,7 +520,6 @@ if (status && status !== old.status) {
 }
 
 res.json({ ok: true });
-    res.json({ ok: true });
 
   } catch (e) {
     console.error(e);
