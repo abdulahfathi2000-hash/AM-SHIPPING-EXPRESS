@@ -31,9 +31,10 @@ padding:0 20px
 }
 
 .hero{
-background:linear-gradient(135deg,#03182d,#0c4b7c);
-color:#fff;
-padding:22px 0 70px
+  background:linear-gradient(135deg,#03182d 0%,#063b68 55%,#075c9e 100%);
+  color:#fff;
+  padding:22px 5% 80px;
+  min-height:100vh;
 }
 
 .nav{
@@ -69,33 +70,47 @@ border:0;
 border-radius:14px;
 padding:13px 20px;
 font-weight:700;
-cursor:pointer
+cursor:pointer;
+  transition:all .25s ease;
+box-shadow:0 6px 18px rgba(0,0,0,.12);
+letter-spacing:.2px;
 }
-
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,.20);
+}
 .primary{background:#0d83ff;color:#fff}
 .ghost{background:#fff;color:#08213b}
 .danger{background:#dc3545;color:#fff}
 
 .heroGrid{
-display:grid;
-grid-template-columns:1.1fr .9fr;
-gap:42px;
-align-items:center;
-padding-top:70px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  padding-top:55px;
+  max-width:1400px;
+  margin:0 auto;
 }
 
 .hero h1{
-font-size:52px;
-line-height:1.25;
-margin:0 0 15px
+  font-size:56px;
+  line-height:1.2;
+  font-weight:800;
+  letter-spacing:-1px;
+  margin:0 0 20px;
+  max-width:700px;
 }
 
 .hero h1 span{color:#2a94ff}
 
 .hero p{
-font-size:18px;
-line-height:1.9;
-color:#dce8f4
+  font-size:18px;
+  line-height:1.9;
+  color:#dce8f4;
+  max-width:620px;
+  margin-bottom:28px;
+  opacity:.95;
 }
 
 .visual{
