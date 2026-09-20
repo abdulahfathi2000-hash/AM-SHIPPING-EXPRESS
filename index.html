@@ -1515,76 +1515,38 @@ await loadMe();
 
 async function editShipment(id){
 
-let status=
-prompt(
-'دۆخی نوێی بار بنووسە:'
-);
+  let status = prompt('دۆخی نوێی بار بنووسە:');
+  if(status === null) return;
 
+  let weight = prompt('کێشی بار بە KG:');
+  if(weight === null) return;
 
-if(!status)return;
+  let cost = prompt('نرخی بار بە $:');
+  if(cost === null) return;
 
+  let method = prompt('جۆری گواستنەوە بنووسە: Air یان Sea');
+  if(method === null) return;
 
-let weight=
-prompt(
-'کێشی بار بە KG:'
-);
+  let r = await fetch('/api/admin/shipments/' + id, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      status,
+      weight: Number(weight) || 0,
+      cost: Number(cost) || 0,
+      method
+    })
+  });
 
-
-if(weight===null)return;
-
-
-let cost=
-prompt(
-'نرخی بار بە $:'
-);
-
-
-if(cost===null)return;
-
-
-let method=
-prompt(
-'Air یان Sea بنووسە:'
-);
-
-
-if(!method)return;
-
-
-let r=
-await fetch(
-'/api/admin/shipments/'+id,
-{
-method:'PUT',
-headers:{
-'Content-Type':'application/json'
-},
-body:JSON.stringify({
-status,
-weight:Number(weight)||0,
-cost:Number(cost)||0,
-method
-})
+  if(r.ok){
+    await loadAdmin();
+    await loadMe();
+  }else{
+    alert('نەتوانرا بارەکە دەستکاری بکرێت');
+  }
 }
-);
-
-
-if(r.ok){
-
-await loadAdmin();
-
-await loadMe();
-
-}else{
-
-alert(
-'نەتوانرا بار دەستکاری بکرێت'
-);
-
-}
-
-}
-
 
 async function deleteShipment(id){
 
