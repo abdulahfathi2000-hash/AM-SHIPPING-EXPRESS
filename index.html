@@ -681,6 +681,7 @@ onclick="openAuth('login')">
 <div id="customerCode" class="sub"></div>
   <div id="shippingMark" class="sub"></div>
 <div id="customerPhone" class="sub"></div>
+  <div id="notifications" class="sub"></div>
 </div>
 
 <button
@@ -1121,6 +1122,16 @@ safe(d.user.phone)+
 shippingMark.innerHTML=
 'Shipping Mark: <b dir="ltr">' +
 safe(d.user.customer_code)+'</b>';
+  let nr = await fetch('/api/notifications');
+
+if (nr.ok) {
+  let notes = await nr.json();
+
+  notifications.innerHTML = notes.length
+    ? '<b>🔔 ئاگادارکردنەوەکان:</b><br>' +
+      notes.map(n => '• ' + safe(n.message)).join('<br>')
+    : '';
+}
 totalShip.textContent=
 sh.length;
 
