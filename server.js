@@ -86,21 +86,7 @@ async function initDatabase() {
       'admin'
     ]);
 
-    const adminId = result.rows[0].id;
-
-    await db.query(`
-      INSERT INTO shipments
-      (user_id, tracking, status, weight, cost, method)
-      VALUES ($1,$2,$3,$4,$5,$6)
-      ON CONFLICT (tracking) DO NOTHING
-    `, [
-      adminId,
-      'AM-98124',
-      'لە ڕێگادا',
-      4.8,
-      52,
-      'Air'
-    ]);
+ 
   }
 
   console.log('PostgreSQL database ready');
