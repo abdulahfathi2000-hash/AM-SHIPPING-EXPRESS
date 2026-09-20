@@ -259,6 +259,49 @@ app.get('/api/me', auth, async (req, res) => {
 });
 
 
+app.post('/api/change-password', auth, async (req, res) => {
+  try {
+    const currentPassword = String(req.body.currentPassword || '');
+    const newPassword = String(req.body.newPassword || '');
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        error: 'وشەی نهێنی نوێ دەبێت لانیکەم 6 پیت بێت'
+      });
+    }
+
+    const result = await db.query(
+      'SELECT password FROM users WHERE id=$1',
+      [req.session.uid]
+    );
+
+    const user = result.rows[0];
+
+    if (!user || !bcrypt.compareSync(currentPassword, user.password)) {
+      return res.status(401).json({
+        error: 'وشەی نهێنی ئێستا هەڵەیە'
+      });
+    }
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+    await db.query(
+      'UPDATE users SET password=$1 WHERE id=$2',
+      [hashedPassword, req.session.uid]
+    );
+
+    res.json({
+      ok: true,
+      message: 'وشەی نهێنی بە سەرکەوتوویی گۆڕدرا ✅'
+    });
+
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      error: 'هەڵەیەک ڕوویدا'
+    });
+  }
+});
 app.get('/api/track/:tracking', async (req, res) => {
   try {
     const result = await db.query(`
