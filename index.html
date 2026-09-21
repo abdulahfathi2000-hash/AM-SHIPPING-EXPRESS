@@ -1760,8 +1760,9 @@ function copyChinaAddress(){
   } else if (lang === "en") {
     document.documentElement.lang = "en";
     document.documentElement.dir = "ltr";
-  
-    
+  }
+  applyLanguage(lang);
+  }
   const translations = {
   ku: {
     home: "سەرەکی",
@@ -1772,6 +1773,7 @@ function copyChinaAddress(){
 heroTitle: "کالاکانت بەخێرایی و پارێزراوی بگەیەنە",
 heroDescription: "بگرین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار",
 heroTrackBtn: "شوێنکەوتنی بار",
+    },
   ar: {
     home: "الرئيسية",
     services: "خدماتنا",
@@ -1802,8 +1804,8 @@ heroTrackBtn: "تتبع الشحنة",
   heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم",
   heroTrackBtn: "پیگیری مرسوله"
 }
-  }
 };
+  function applyLanguage(lang) {
   const t = translations[lang];
   document.getElementById("heroWelcome").textContent = t.heroWelcome;
   document.getElementById("heroTitle").textContent = t.heroTitle;
