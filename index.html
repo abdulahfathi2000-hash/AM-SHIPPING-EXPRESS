@@ -551,7 +551,14 @@ grid-template-columns:1fr
 <img src="logo.png">
 <span dir="ltr">AM SHIPPING EXPRESS</span>
 </div>
-
+<div class="language-switcher">
+  <select id="languageSelect" onchange="changeLanguage(this.value)">
+    <option value="ku">کوردی</option>
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+    <option value="fa">فارسی</option>
+  </select>
+</div>
 <div class="links">
 <a href="#home">سەرەکی</a>
 <a href="#services">خزمەتگوزارییەکان</a>
@@ -576,22 +583,22 @@ grid-template-columns:1fr
 
 <div>
 
-<div>لە چینەوە بۆ کوردستان و عێراق</div>
+<div id="heroWelcome">بە خێرهاتن بۆ کوردستان و عێراق</div>
 
-<h1>
+<h1 id="heroTitle">
 کاڵاکانت
 <span>خێرا و پارێزراو</span>
 بگەیەنە
 </h1>
 
-<p>
+<p id="heroDescription">
 کڕین لە پلاتفۆرمە چینییەکان،
 گواستنەوەی ئاسمانی و دەریایی،
 ناونیشانی تایبەت لە چین
 و شوێنکەوتنی بار.
 </p>
 
-<a class="btn primary" href="#track">
+<a id="heroTrackBtn" class="btn primary" href="#track">
 شوێنکەوتنی بار
 </a>
 
@@ -1688,6 +1695,76 @@ function copyChinaAddress(){
     alert('ناونیشان کۆپی کرا ✅');
   });
 }
+  function changeLanguage(lang) {
+  localStorage.setItem("siteLanguage", lang);
+
+  if (lang === "ku") {
+    document.documentElement.lang = "ku";
+    document.documentElement.dir = "rtl";
+  } else if (lang === "ar") {
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+  } else if (lang === "fa") {
+    document.documentElement.lang = "fa";
+    document.documentElement.dir = "rtl";
+  } else if (lang === "en") {
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }
+  const translations = {
+  ku: {
+    home: "سەرەکی",
+    services: "خزمەتگوزارییەکان",
+    track: "بەدواداچوونی بار",
+    contact: "پەیوەندی"
+  heroWelcome: "بەخێربێن بۆ کوردستان و عێراق",
+heroTitle: "کالاکانت بەخێرایی و پارێزراوی بگەیەنە",
+heroDescription: "بگرین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار",
+heroTrackBtn: "شوێنکەوتنی بار",
+  ar: {
+    home: "الرئيسية",
+    services: "خدماتنا",
+    track: "تتبع الشحنة",
+    contact: "اتصل بنا"
+    heroWelcome: "مرحباً بكم في كردستان والعراق",
+heroTitle: "نوصل بضائعك بسرعة وأمان",
+heroDescription: "نشتري من المنصات الصينية، ونوفر الشحن الجوي والبحري، وعنواناً خاصاً في الصين، مع إمكانية تتبع الشحنة",
+heroTrackBtn: "تتبع الشحنة",
+  },
+  en: {
+    home: "Home",
+    services: "Services",
+    track: "Track Shipment",
+    contact: "Contact",
+    heroWelcome: "Welcome to Kurdistan and Iraq",
+      heroTitle: "Fast and Secure Delivery",
+      heroDescription: "We bring Chinese products to Kurdistan and Iraq by air and sea, with a dedicated address in China and shipment tracking.",
+      heroTrackBtn: "Track Shipment"
+  },
+  fa: {
+  home: "خانه",
+  services: "خدمات",
+  track: "پیگیری مرسوله",
+  contact: "تماس با ما",
+  heroWelcome: "به کردستان و عراق خوش آمدید",
+  heroTitle: "کالاهای خود را سریع و ایمن تحویل بگیرید",
+  heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم",
+  heroTrackBtn: "پیگیری مرسوله"
+}
+  }
+};
+  const t = translations[lang];
+  document.getElementById("heroWelcome").textContent = t.heroWelcome;
+  document.getElementById("heroTitle").textContent = t.heroTitle;
+  document.getElementById("heroDescription").textContent = t.heroDescription;
+  document.getElementById("heroTrackBtn").textContent = t.heroTrackBtn;
+
+document.querySelector('a[href="#home"]').textContent = t.home;
+document.querySelector('a[href="#services"]').textContent = t.services;
+document.querySelector('a[href="#track"]').textContent = t.track;
+document.querySelector('a[href="#contact"]').textContent = t.contact;
+  }
+  changeLanguage(localStorage.getItem("siteLanguage") || "ku");
 </script>
 
 </body>
