@@ -1763,7 +1763,7 @@ function copyChinaAddress(){
   }
   applyLanguage(lang);
   }
-  const translations = {
+  var translations = {
   ku: {
     home: "سەرەکی",
     services: "خزمەتگوزارییەکان",
@@ -1804,9 +1804,11 @@ heroTrackBtn: "تتبع الشحنة",
   heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم",
   heroTrackBtn: "پیگیری مرسوله"
 }
-};
+
+  applyLanguage(localStorage.getItem("siteLanguage") || "ku");
   function applyLanguage(lang) {
   const t = translations[lang];
+    if (!t) return;
   document.getElementById("heroWelcome").textContent = t.heroWelcome;
   document.getElementById("heroTitle").textContent = t.heroTitle;
   document.getElementById("heroDescription").textContent = t.heroDescription;
@@ -1817,7 +1819,6 @@ document.querySelector('a[href="#services"]').textContent = t.services;
 document.querySelector('a[href="#track"]').textContent = t.track;
 document.querySelector('a[href="#contact"]').textContent = t.contact;
   }
-  changeLanguage(localStorage.getItem("siteLanguage") || "ku");
 </script>
 
 </body>
