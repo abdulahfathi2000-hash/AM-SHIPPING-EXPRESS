@@ -591,32 +591,47 @@ grid-template-columns:1fr
   
 <body>
 
-<section class="hero">
-
+<section id="home" class="hero">
 <div class="wrap">
-
 <nav class="nav">
-
 <div class="brand">
-<img src="logo.png">
+<img src="logo.png" alt="AM Shipping Express">
 <span dir="ltr">AM SHIPPING EXPRESS</span>
 </div>
 <div class="language-switcher">
-  <select id="languageSelect" onchange="changeLanguage(this.value)">
-    <option value="ku">کوردی</option>
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-    <option value="fa">فارسی</option>
-  </select>
+<select id="languageSelect" onchange="changeLanguage(this.value)">
+<option value="ku">کوردی</option>
+<option value="ar">العربية</option>
+<option value="en">English</option>
+<option value="fa">فارسی</option>
+</select>
 </div>
 <div class="links">
 <a href="#home">سەرەکی</a>
 <a href="#services">خزمەتگوزارییەکان</a>
+<a href="#track">شوێنکەوتنی بار</a>
 <a href="#contact">پەیوەندی</a>
 </div>
+<div class="navActions">
+<button class="btn ghost" onclick="openAuth('login')">چوونەژوورەوە</button>
+</div>
+</nav>
 
+<div class="heroGrid">
 <div>
-
+<div id="heroWelcome">بەخێرهاتن بۆ کوردستان و عێراق</div>
+<h1 id="heroTitle">کالاکانت بەخێرایی و پارێزراو بگەیەنە</h1>
+<p id="heroDescription">کڕین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار.</p>
+<a id="heroTrackBtn" class="btn primary" href="#track">شوێنکەوتنی بار</a>
+</div>
+<div class="visual">
+<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:30px;">
+<source src="Am OUTRO.mp4" type="video/mp4">
+</video>
+</div>
+</div>
+</div>
+</section>
 
 <div class="wrap">
 
@@ -1325,9 +1340,6 @@ ${new Date(s.updated_at).toLocaleString('en-GB', {
 }
 
 
-}
-
-
 async function loadAdmin(){
 
 let ur=
@@ -1622,64 +1634,45 @@ function copyChinaAddress(){
   });
 }
  var translations = {
-   
   ku: {
+    home: "سەرەکی", services: "خزمەتگوزارییەکان", track: "شوێنکەوتنی بار", contact: "پەیوەندی",
+    heroWelcome: "بەخێرهاتن بۆ کوردستان و عێراق",
+    heroTitle: "کالاکانت بەخێرایی و پارێزراو بگەیەنە",
+    heroDescription: "کڕین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار.",
     heroTrackBtn: "شوێنکەوتنی بار",
-customerAccountTitle: "👤 ئەکاونتی کڕیار",
-customerAccountDescription: "بارەکان، کێش، نرخ و ستاتوسی گەیاندن ببینە.",
-customerLoginBtn: "چوونەژوورەوە"
-    services: "خزمەتگوزارییەکان",
-    track: "بەدواداچوونی بار",
-    contact: "پەیوەندی",
-    heroWelcome: "بەخێربێن بۆ کوردستان و عێراق",
-    heroTitle: "کالاکانت بەخێرایی و پارێزراوی بگەیەنە",
-    heroDescription: "بگرین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار.",
-    heroTrackBtn: "شوێنکەوتنی بار"
+    customerAccountTitle: "👤 ئەکاونتی کڕیار",
+    customerAccountDescription: "بارەکان، کێش، نرخ و ستاتوسی گەیاندن ببینە.",
+    customerLoginBtn: "چوونەژوورەوە"
   },
-
   ar: {
-    heroTrackBtn: "تتبع الشحنة",
-customerAccountTitle: "👤 حساب العميل",
-customerAccountDescription: "شاهد شحناتك، الوزن، التكلفة وحالة التوصيل.",
-customerLoginBtn: "تسجيل الدخول"
-    home: "الرئيسية",
-    services: "خدماتنا",
-    track: "تتبع الشحنة",
-    contact: "اتصل بنا",
+    home: "الرئيسية", services: "خدماتنا", track: "تتبع الشحنة", contact: "اتصل بنا",
     heroWelcome: "مرحباً بكم في كردستان والعراق",
     heroTitle: "نوصل بضائعك بسرعة وأمان",
     heroDescription: "نشتري من المنصات الصينية، ونوفر الشحن الجوي والبحري، وعنواناً خاصاً في الصين، مع إمكانية تتبع الشحنة.",
-    heroTrackBtn: "تتبع الشحنة"
+    heroTrackBtn: "تتبع الشحنة",
+    customerAccountTitle: "👤 حساب العميل",
+    customerAccountDescription: "شاهد شحناتك، الوزن، التكلفة وحالة التوصيل.",
+    customerLoginBtn: "تسجيل الدخول"
   },
-
   en: {
-    heroTrackBtn: "Track Shipment",
-customerAccountTitle: "👤 Customer Account",
-customerAccountDescription: "View your shipments, weight, cost, and delivery status.",
-customerLoginBtn: "Log In"
-    home: "Home",
-    services: "Services",
-    track: "Track Shipment",
-    contact: "Contact",
+    home: "Home", services: "Services", track: "Track Shipment", contact: "Contact",
     heroWelcome: "Welcome to Kurdistan and Iraq",
     heroTitle: "Fast and Secure Delivery",
-    heroDescription: "We buy from Chinese platforms and provide air and sea shipping, a private address in China",
-    heroTrackBtn: "Track Shipment"
+    heroDescription: "We buy from Chinese platforms and provide air and sea shipping, a private address in China, and shipment tracking.",
+    heroTrackBtn: "Track Shipment",
+    customerAccountTitle: "👤 Customer Account",
+    customerAccountDescription: "View your shipments, weight, cost, and delivery status.",
+    customerLoginBtn: "Log In"
   },
-
   fa: {
-    heroTrackBtn: "پیگیری مرسوله",
-customerAccountTitle: "👤 حساب مشتری",
-customerAccountDescription: "مرسوله‌ها، وزن، هزینه و وضعیت تحویل را مشاهده کنید.",
-customerLoginBtn: "ورود"
-    home: "خانه",
-    services: "خدمات",
-    track: "پیگیری مرسوله",
-    contact: "تماس با ما",
+    home: "خانه", services: "خدمات", track: "پیگیری مرسوله", contact: "تماس با ما",
     heroWelcome: "به کردستان و عراق خوش آمدید",
     heroTitle: "کالاهای خود را سریع و ایمن تحویل بگیرید",
     heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم.",
-    heroTrackBtn: "پیگیری مرسوله"
+    heroTrackBtn: "پیگیری مرسوله",
+    customerAccountTitle: "👤 حساب مشتری",
+    customerAccountDescription: "مرسوله‌ها، وزن، هزینه و وضعیت تحویل را مشاهده کنید.",
+    customerLoginBtn: "ورود"
   }
 };
 
@@ -1690,14 +1683,27 @@ function applyLanguage(lang) {
   document.documentElement.lang = lang;
   document.documentElement.dir = (lang === "en") ? "ltr" : "rtl";
 
-  document.getElementById("heroWelcome").textContent = t.heroWelcome;
-  document.getElementById("heroTitle").textContent = t.heroTitle;
-  document.getElementById("heroDescription").textContent = t.heroDescription;
-  document.getElementById("heroTrackBtn").textContent = t.heroTrackBtn;
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el && value != null) el.textContent = value;
+  };
 
-  document.querySelector('a[href="#home"]').textContent = t.home;
-  document.querySelector('a[href="#services"]').textContent = t.services;
-  document.querySelector('a[href="#contact"]').textContent = t.contact;
+  setText("heroWelcome", t.heroWelcome);
+  setText("heroTitle", t.heroTitle);
+  setText("heroDescription", t.heroDescription);
+  setText("heroTrackBtn", t.heroTrackBtn);
+  setText("customerAccountTitle", t.customerAccountTitle);
+  setText("customerAccountDescription", t.customerAccountDescription);
+  setText("customerLoginBtn", t.customerLoginBtn);
+
+  const homeLink = document.querySelector('a[href="#home"]');
+  const servicesLink = document.querySelector('a[href="#services"]');
+  const trackLink = document.querySelector('a[href="#track"]');
+  const contactLink = document.querySelector('a[href="#contact"]');
+  if (homeLink) homeLink.textContent = t.home;
+  if (servicesLink) servicesLink.textContent = t.services;
+  if (trackLink) trackLink.textContent = t.track;
+  if (contactLink) contactLink.textContent = t.contact;
 }
 
 function changeLanguage(lang) {
