@@ -1761,7 +1761,6 @@ function copyChinaAddress(){
     document.documentElement.lang = "en";
     document.documentElement.dir = "ltr";
   }
-    applyLanguage(lang);
     
   var translations = {
   ku: {
@@ -1805,7 +1804,6 @@ heroTrackBtn: "تتبع الشحنة",
   heroTrackBtn: "پیگیری مرسوله"
 }
 
-  applyLanguage(localStorage.getItem("siteLanguage") || "ku");
   function applyLanguage(lang) {
   const t = translations[lang];
     if (!t) return;
@@ -1819,6 +1817,7 @@ document.querySelector('a[href="#services"]').textContent = t.services;
 document.querySelector('a[href="#track"]').textContent = t.track;
 document.querySelector('a[href="#contact"]').textContent = t.contact;
   }
+  changeLanguage(localStorage.getItem("siteLanguage") || "ku");
 </script>
 
 </body>
