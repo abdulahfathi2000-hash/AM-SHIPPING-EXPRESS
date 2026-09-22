@@ -1763,63 +1763,79 @@ function copyChinaAddress(){
   }
     applyLanguage(lang);
   }
-  var translations = {
+ var translations = {
   ku: {
     home: "سەرەکی",
     services: "خزمەتگوزارییەکان",
     track: "بەدواداچوونی بار",
-    contact: "پەیوەندی"
-  heroWelcome: "بەخێربێن بۆ کوردستان و عێراق",
-heroTitle: "کالاکانت بەخێرایی و پارێزراوی بگەیەنە",
-heroDescription: "بگرین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار",
-heroTrackBtn: "شوێنکەوتنی بار",
-    },
+    contact: "پەیوەندی",
+    heroWelcome: "بەخێربێن بۆ کوردستان و عێراق",
+    heroTitle: "کالاکانت بەخێرایی و پارێزراوی بگەیەنە",
+    heroDescription: "بگرین لە پلاتفۆرمە چینییەکان، گواستنەوەی ئاسمانی و دەریایی، ناونیشانی تایبەت لە چین و شوێنکەوتنی بار.",
+    heroTrackBtn: "شوێنکەوتنی بار"
+  },
+
   ar: {
     home: "الرئيسية",
     services: "خدماتنا",
     track: "تتبع الشحنة",
-    contact: "اتصل بنا"
+    contact: "اتصل بنا",
     heroWelcome: "مرحباً بكم في كردستان والعراق",
-heroTitle: "نوصل بضائعك بسرعة وأمان",
-heroDescription: "نشتري من المنصات الصينية، ونوفر الشحن الجوي والبحري، وعنواناً خاصاً في الصين، مع إمكانية تتبع الشحنة",
-heroTrackBtn: "تتبع الشحنة",
+    heroTitle: "نوصل بضائعك بسرعة وأمان",
+    heroDescription: "نشتري من المنصات الصينية، ونوفر الشحن الجوي والبحري، وعنواناً خاصاً في الصين، مع إمكانية تتبع الشحنة.",
+    heroTrackBtn: "تتبع الشحنة"
   },
+
   en: {
     home: "Home",
     services: "Services",
     track: "Track Shipment",
     contact: "Contact",
     heroWelcome: "Welcome to Kurdistan and Iraq",
-      heroTitle: "Fast and Secure Delivery",
-      heroDescription: "We bring Chinese products to Kurdistan and Iraq by air and sea, with a dedicated address in China and shipment tracking.",
-      heroTrackBtn: "Track Shipment"
+    heroTitle: "Fast and Secure Delivery",
+    heroDescription: "We buy from Chinese platforms and provide air and sea shipping, a private address in China, and shipment tracking.",
+    heroTrackBtn: "Track Shipment"
   },
-  fa: {
-  home: "خانه",
-  services: "خدمات",
-  track: "پیگیری مرسوله",
-  contact: "تماس با ما",
-  heroWelcome: "به کردستان و عراق خوش آمدید",
-  heroTitle: "کالاهای خود را سریع و ایمن تحویل بگیرید",
-  heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم",
-  heroTrackBtn: "پیگیری مرسوله"
-}
 
-  function applyLanguage(lang) {
-  const t = translations[lang];
-    if (!t) return;
+  fa: {
+    home: "خانه",
+    services: "خدمات",
+    track: "پیگیری مرسوله",
+    contact: "تماس با ما",
+    heroWelcome: "به کردستان و عراق خوش آمدید",
+    heroTitle: "کالاهای خود را سریع و ایمن تحویل بگیرید",
+    heroDescription: "از پلتفرم‌های چینی خرید می‌کنیم و حمل‌ونقل هوایی و دریایی، آدرس اختصاصی در چین و امکان پیگیری مرسوله را ارائه می‌دهیم.",
+    heroTrackBtn: "پیگیری مرسوله"
+  }
+};
+
+function applyLanguage(lang) {
+  var t = translations[lang];
+  if (!t) return;
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === "en") ? "ltr" : "rtl";
+
   document.getElementById("heroWelcome").textContent = t.heroWelcome;
   document.getElementById("heroTitle").textContent = t.heroTitle;
   document.getElementById("heroDescription").textContent = t.heroDescription;
   document.getElementById("heroTrackBtn").textContent = t.heroTrackBtn;
 
-document.querySelector('a[href="#home"]').textContent = t.home;
-document.querySelector('a[href="#services"]').textContent = t.services;
-document.querySelector('a[href="#track"]').textContent = t.track;
-document.querySelector('a[href="#contact"]').textContent = t.contact;
-  }
-  document.getElementById("languageSelect").value = localStorage.getItem("siteLanguage") || "ku";
-  changeLanguage(localStorage.getItem("siteLanguage") || "ku");
+  document.querySelector('a[href="#home"]').textContent = t.home;
+  document.querySelector('a[href="#services"]').textContent = t.services;
+  document.querySelector('a[href="#track"]').textContent = t.track;
+  document.querySelector('a[href="#contact"]').textContent = t.contact;
+}
+
+function changeLanguage(lang) {
+  localStorage.setItem("siteLanguage", lang);
+  applyLanguage(lang);
+}
+
+var savedLanguage = localStorage.getItem("siteLanguage") || "ku";
+
+document.getElementById("languageSelect").value = savedLanguage;
+applyLanguage(savedLanguage);
 </script>
 
 </body>
