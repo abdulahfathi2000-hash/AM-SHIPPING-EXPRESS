@@ -669,18 +669,17 @@ grid-template-columns:1fr
 
 
 <section id="track" class="section track">
-  
-
 
 <div class="panel">
 
-<h2>👤 ئەکاونتی کڕیار</h2>
+<h2 id="customerAccountTitle">👤 ئەکاونتی کڕیار</h2>
 
-<p>
+<p id="customerAccountDescription">
 بارەکان، کێش، نرخ و ستاتوسی گەیاندن ببینە.
 </p>
 
 <button
+id="customerLoginBtn"
 class="btn primary"
 onclick="openAuth('login')">
 
@@ -690,6 +689,27 @@ onclick="openAuth('login')">
 
 </div>
 
+  <div class="panel" style="margin-top:20px;">
+  <h2>🔎 بەدواداچوونی بار</h2>
+  <p>کۆدی Tracking ـەکەت بنووسە بۆ زانینی دۆخی بارەکەت.</p>
+
+  <input
+    id="tracking"
+    class="input"
+    type="text"
+    placeholder="AM-98124"
+    dir="ltr"
+  >
+
+  <button
+    class="btn primary"
+    style="margin-top:12px;width:100%;"
+    onclick="track()">
+    گەڕان
+  </button>
+
+  <div id="trackResult" style="margin-top:15px;"></div>
+</div>
 </section>
 
 
@@ -1602,8 +1622,12 @@ function copyChinaAddress(){
   });
 }
  var translations = {
+   
   ku: {
-    home: "سەرەکی",
+    heroTrackBtn: "شوێنکەوتنی بار",
+customerAccountTitle: "👤 ئەکاونتی کڕیار",
+customerAccountDescription: "بارەکان، کێش، نرخ و ستاتوسی گەیاندن ببینە.",
+customerLoginBtn: "چوونەژوورەوە"
     services: "خزمەتگوزارییەکان",
     track: "بەدواداچوونی بار",
     contact: "پەیوەندی",
@@ -1614,6 +1638,10 @@ function copyChinaAddress(){
   },
 
   ar: {
+    heroTrackBtn: "تتبع الشحنة",
+customerAccountTitle: "👤 حساب العميل",
+customerAccountDescription: "شاهد شحناتك، الوزن، التكلفة وحالة التوصيل.",
+customerLoginBtn: "تسجيل الدخول"
     home: "الرئيسية",
     services: "خدماتنا",
     track: "تتبع الشحنة",
@@ -1625,6 +1653,10 @@ function copyChinaAddress(){
   },
 
   en: {
+    heroTrackBtn: "Track Shipment",
+customerAccountTitle: "👤 Customer Account",
+customerAccountDescription: "View your shipments, weight, cost, and delivery status.",
+customerLoginBtn: "Log In"
     home: "Home",
     services: "Services",
     track: "Track Shipment",
@@ -1636,6 +1668,10 @@ function copyChinaAddress(){
   },
 
   fa: {
+    heroTrackBtn: "پیگیری مرسوله",
+customerAccountTitle: "👤 حساب مشتری",
+customerAccountDescription: "مرسوله‌ها، وزن، هزینه و وضعیت تحویل را مشاهده کنید.",
+customerLoginBtn: "ورود"
     home: "خانه",
     services: "خدمات",
     track: "پیگیری مرسوله",
@@ -1673,6 +1709,20 @@ var savedLanguage = localStorage.getItem("siteLanguage") || "ku";
 
 document.getElementById("languageSelect").value = savedLanguage;
 applyLanguage(savedLanguage);
+  function track() {
+  const code = document.getElementById("tracking").value.trim();
+  const result = document.getElementById("trackResult");
+
+  if (!code) {
+    result.innerHTML = "<p>⚠️ تکایە کۆدی Tracking بنووسە.</p>";
+    return;
+  }
+
+  result.innerHTML =
+    "<p>🔎 گەڕان بۆ بار: <b dir='ltr'>" +
+    code +
+    "</b></p>";
+}
 </script>
 
 </body>
