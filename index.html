@@ -612,59 +612,10 @@ grid-template-columns:1fr
 <div class="links">
 <a href="#home">سەرەکی</a>
 <a href="#services">خزمەتگوزارییەکان</a>
-<a href="#track">شوێنکەوتنی بار</a>
 <a href="#contact">پەیوەندی</a>
 </div>
 
 <div>
-<button class="btn ghost" onclick="openAuth('login')">
-چوونەژوورەوە
-</button>
-
-<button class="btn primary" onclick="openAuth('register')">
-ئەکاونت دروست بکە
-</button>
-</div>
-
-</nav>
-
-
-<div id="home" class="heroGrid">
-
-<div>
-
-<div id="heroWelcome">بە خێرهاتن بۆ کوردستان و عێراق</div>
-
-<h1 id="heroTitle">
-کاڵاکانت
-<span>خێرا و پارێزراو</span>
-بگەیەنە
-</h1>
-
-<p id="heroDescription">
-کڕین لە پلاتفۆرمە چینییەکان،
-گواستنەوەی ئاسمانی و دەریایی،
-ناونیشانی تایبەت لە چین
-و شوێنکەوتنی بار.
-</p>
-
-<a id="heroTrackBtn" class="btn primary" href="#track">
-شوێنکەوتنی بار
-</a>
-
-</div>
-
-<div class="visual">
-<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover:object-position:center;border-radius:24px;display:block;">
-  <source src="Am OUTRO.mp4" type="video/mp4">
-</video>
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 
 <div class="wrap">
@@ -718,33 +669,7 @@ grid-template-columns:1fr
 
 
 <section id="track" class="section track">
-
-<div class="panel">
-
-<h2>🔎 شوێنکەوتنی بار</h2>
-
-<p class="sub">
-کۆدی بارەکەت بنووسە
-</p>
-
-<input
-id="tracking"
-class="input"
-placeholder="AM-98124"
-dir="ltr">
-
-<button
-class="btn primary"
-style="margin-top:12px;width:100%"
-onclick="track()">
-
-گەڕان
-
-</button>
-
-<div id="trackResult"></div>
-
-</div>
+  
 
 
 <div class="panel">
@@ -1380,75 +1305,6 @@ ${new Date(s.updated_at).toLocaleString('en-GB', {
 }
 
 
-async function track(){
-
-let v=
-tracking.value.trim();
-
-
-if(!v){
-
-trackResult.innerHTML=
-'<div class="notice">تکایە کۆدی بار بنووسە.</div>';
-
-return;
-
-}
-
-
-let r=
-await fetch(
-'/api/track/'+
-encodeURIComponent(v)
-);
-
-
-let d=
-await r.json();
-
-
-if(!r.ok){
-
-trackResult.innerHTML=
-'<div class="notice">'+
-safe(d.error)+
-'</div>';
-
-return;
-
-}
-
-
-trackResult.innerHTML=
-
-'<div class="shipment">'+
-
-'<div class="shipTop">'+
-
-'<b dir="ltr">'+
-safe(d.tracking)+
-'</b>'+
-
-'<span class="badge">'+
-safe(d.status)+
-'</span>'+
-
-'</div>'+
-
-'<p>'+
-
-(d.method==='Sea'?'🚢':'✈️')+
-
-' '+safe(d.method)+
-
-' | ⚖️ '+
-
-Number(d.weight||0).toFixed(2)+
-
-' kg</p>'+
-
-'</div>';
-
 }
 
 
@@ -1793,7 +1649,7 @@ function copyChinaAddress(){
     contact: "Contact",
     heroWelcome: "Welcome to Kurdistan and Iraq",
     heroTitle: "Fast and Secure Delivery",
-    heroDescription: "We buy from Chinese platforms and provide air and sea shipping, a private address in China, and shipment tracking.",
+    heroDescription: "We buy from Chinese platforms and provide air and sea shipping, a private address in China",
     heroTrackBtn: "Track Shipment"
   },
 
@@ -1823,7 +1679,6 @@ function applyLanguage(lang) {
 
   document.querySelector('a[href="#home"]').textContent = t.home;
   document.querySelector('a[href="#services"]').textContent = t.services;
-  document.querySelector('a[href="#track"]').textContent = t.track;
   document.querySelector('a[href="#contact"]').textContent = t.contact;
 }
 
