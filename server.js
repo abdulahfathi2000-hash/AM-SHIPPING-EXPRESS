@@ -2,6 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD
+  }
+});
 const { Pool } = require('pg');
 const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
@@ -222,6 +229,50 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.post('/api/forgot-password', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').trim().toLowerCase();
+
+    const result = await db.query(
+      'SELECT * FROM users WHERE email=$1',
+      [email]
+    );
+
+    const user = result.rows[0];
+
+    if (!user) {
+      return res.status(404).json({
+        error: 'ئەم ئیمەیڵە تۆمار نەکراوە'
+      });
+    }
+
+    const newPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+    await db.query(
+      'UPDATE users SET password=$1 WHERE id=$2',
+      [hashedPassword, user.id]
+    );
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: 'AM Shipping Express - Password Reset',
+      text: `وشەی نهێنی نوێی تۆ: ${newPassword}`
+    });
+
+    res.json({
+      ok: true,
+      message: 'وشەی نهێنی نوێ بۆ ئیمەیڵەکەت نێردرا'
+    });
+
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      error: 'هەڵەیەک ڕوویدا'
+    });
+  }
+});
 
 app.post('/api/logout', (req, res) =>
   req.session.destroy(() =>
