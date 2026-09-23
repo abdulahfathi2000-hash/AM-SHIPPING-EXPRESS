@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 const { Pool } = require('pg');
 const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
