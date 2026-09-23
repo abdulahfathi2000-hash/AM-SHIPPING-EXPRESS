@@ -1144,19 +1144,31 @@ function closeAuth(){
 modal.classList.remove('show');
 
 }
-function openForgotPassword(){
+async function openForgotPassword(){
   closeAuth();
 
-  const phoneNumber = prompt("ژمارەی مۆبایلی ئەکاونتەکەت بنووسە:");
-  if (!phoneNumber) return;
+  const email = prompt("ئیمەیڵی ئەکاونتەکەت بنووسە:");
+  if (!email) return;
 
-  const newPassword = prompt("وشەی نهێنی نوێ بنووسە (لانیکەم 6 پیت):");
-  if (!newPassword || newPassword.length < 6) {
-    alert("وشەی نهێنی دەبێت لانیکەم 6 پیت بێت.");
-    return;
+  try {
+    const r = await fetch('/api/forgot-password', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ email })
+    });
+
+    const d = await r.json();
+
+    if (!r.ok) {
+      alert(d.error || "هەڵەیەک ڕوویدا.");
+      return;
+    }
+
+    alert(d.message || "وشەی نهێنی نوێ بۆ ئیمەیڵەکەت نێردرا.");
+  } catch (e) {
+    alert("هەڵەیەک ڕوویدا، دووبارە هەوڵ بدەوە.");
   }
-
-  alert("داواکاری گۆڕینی وشەی نهێنی ئامادەیە.");
+}
 }
 
 async function auth(e){
