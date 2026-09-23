@@ -48,13 +48,17 @@ async function initDatabase() {
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
       phone TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE,
       password TEXT NOT NULL,
       customer_code TEXT UNIQUE NOT NULL,
       role TEXT DEFAULT 'customer',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `);
-
+await db.query(`
+  ALTER TABLE users
+  ADD COLUMN IF NOT EXISTS email TEXT UNIQUE;
+`);
   await db.query(`
     CREATE TABLE IF NOT EXISTS shipments (
       id SERIAL PRIMARY KEY,
@@ -109,13 +113,14 @@ async function initDatabase() {
 
 app.post('/api/register', async (req, res) => {
   try {
-    let { name, phone, password } = req.body;
+    let { name, phone, email, password } = req.body;
 
     name = String(name || '').trim();
     phone = String(phone || '').trim();
+    email = String(email || '').trim().toLowerCase();
     password = String(password || '');
 
-    if (!name || !phone || !password || password.length < 6) {
+    if (!name || !phone || !email || !password || password.length < 6) {
       return res.status(400).json({
         error: 'زانیارییەکان تەواو بکە'
       });
@@ -141,12 +146,13 @@ app.post('/api/register', async (req, res) => {
 
     const result = await db.query(`
       INSERT INTO users
-      (name, phone, password, customer_code)
-      VALUES ($1,$2,$3,$4)
+      (name, phone, email, password, customer_code)
+      VALUES ($1,$2,$3,$4$5)
       RETURNING id
     `, [
       name,
       phone,
+      email,
       h,
       code
     ]);
