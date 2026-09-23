@@ -1045,7 +1045,20 @@ class="input">
 
 </div>
 
+<div id="emailWrap" style="display:none;">
 
+  <label>
+    ئیمەیڵ
+  </label>
+
+  <input
+    id="email"
+    class="input"
+    type="email"
+    autocomplete="email"
+    placeholder="example@gmail.com">
+
+</div>
 <label>
 ژمارەی مۆبایل
 </label>
@@ -1117,7 +1130,10 @@ nameWrap.style.display=
 m==='register'
 ?'block'
 :'none';
-
+emailWrap.style.display=
+m==='register'
+?'block'
+:'none';
 modal.classList.add('show');
 
 }
@@ -1154,7 +1170,7 @@ password:password.value
 
 if(mode==='register')
 body.name=document.getElementById('name').value.trim();
-
+body.email=document.getElementById('email').value.trim();
 
 let r=await fetch(
 '/api/'+mode,
