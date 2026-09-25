@@ -418,7 +418,64 @@ grid-template-columns:1fr
 
 .visual{min-height:260px}
 
+} 
+
+
+  /* Mobile fix */
+body{
+  overflow-x:hidden !important;
 }
+
+#dashboard{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
+}
+
+#dashboard .panel{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  padding:16px !important;
+}
+
+#dashboard .shipment{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}
+
+#dashboard .trackSteps{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:8px !important;
+  width:100% !important;
+}
+
+#dashboard .trackStep{
+  min-width:0 !important;
+  width:100% !important;
+  padding:12px 6px !important;
+  box-sizing:border-box !important;
+  font-size:13px !important;
+  overflow-wrap:anywhere !important;
+}
+
+#dashboard .shipTop{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:8px !important;
+  width:100% !important;
+}
+
+#dashboard #chinaAddress{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  overflow-wrap:anywhere !important;
+}
+  
   /* ===== AM SHIPPING PROFESSIONAL DASHBOARD ===== */
 
 #dashboard .panel{
