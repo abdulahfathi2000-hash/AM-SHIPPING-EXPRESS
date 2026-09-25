@@ -1339,7 +1339,17 @@ await loadAdmin();
 
 
 function shipHTML(s){
+let step = 1;
 
+if (s.status === 'لە گواستنەوەدایە') step = 2;
+if (s.status === 'گەیشتە کوردستان') step = 3;
+if (s.status === 'تەسلیم کرا') step = 4;
+  const steps = [
+  'وەرگیرا لە چین',
+  'لە گواستنەوەدایە',
+  'گەیشتە کوردستان',
+  'تەسلیم کرا'
+];
 return `
 
 <div class="shipment">
@@ -1353,7 +1363,14 @@ ${safe(s.tracking)}
 <span class="badge">
 ${safe(s.status)}
 </span>
-
+<div class="trackSteps">
+  ${steps.map((name, i) => `
+    <div class="trackStep ${i + 1 <= step ? 'active' : ''}">
+      <span>${i + 1 < step ? '✓' : i + 1}</span>
+      <b>${name}</b>
+    </div>
+  `).join('')}
+</div>
 </div>
 
 <p>
