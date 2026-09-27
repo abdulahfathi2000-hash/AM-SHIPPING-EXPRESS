@@ -863,6 +863,121 @@ h2{color:#0b2d58}
 }
 </style>
 
+
+<style id="am-final-mobile-fix">
+/* ===== AM Shipping final mobile/tablet cleanup ===== */
+html,body{max-width:100%;overflow-x:hidden}
+body{background:linear-gradient(180deg,#eef8ff 0,#fff 35%,#f7fbff 100%)!important}
+.hero{background:linear-gradient(160deg,#eaf7ff 0%,#f8fcff 58%,#dff1ff 100%)!important;color:#08284f!important}
+.hero:after{background:radial-gradient(circle at 70% 45%,rgba(8,124,240,.13),transparent 38%)!important}
+.hero h1,.heroGrid h1,#heroWelcome{color:#08284f!important}
+.hero p{color:#496985!important}
+.referenceHeroVisual.amHeroScene{
+  position:relative!important;overflow:hidden!important;min-height:470px!important;height:470px!important;
+  border-radius:34px!important;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(44,160,255,.38),transparent 24%),
+    linear-gradient(155deg,#0b2e55 0%,#0b5e9b 52%,#52b8e8 100%)!important;
+  box-shadow:0 24px 60px rgba(7,57,103,.22)!important;
+  border:5px solid rgba(255,255,255,.75)!important;
+}
+.amRouteGlow{position:absolute;inset:15% 10%;border:2px dashed rgba(255,255,255,.48);border-radius:50%;transform:rotate(-12deg)}
+.amPlane{position:absolute;top:14%;left:14%;font-size:74px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.22));transform:rotate(-12deg)}
+.amShip{position:absolute;right:11%;bottom:13%;font-size:86px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.2))}
+.amBoxes{position:absolute;left:12%;bottom:17%;font-size:38px;letter-spacing:6px}
+.amHeroLogo{position:absolute;right:10%;top:12%;width:145px;height:105px;background:rgba(255,255,255,.94);border-radius:24px;padding:12px;box-shadow:0 15px 35px rgba(0,0,0,.18);display:grid;place-items:center}
+.amHeroLogo img{width:100%;height:100%;object-fit:contain}
+.referenceHeroVisual:after{display:none!important}
+.introMini{right:50%!important;bottom:8%!important;transform:translateX(50%);width:180px!important;height:105px!important;border-radius:18px!important}
+
+/* remove oversized empty gaps */
+.section{padding:42px 0!important}
+.cards{margin-top:-22px!important}
+.services .card{min-width:0}
+#dashboard .shipment{overflow:hidden}
+#dashboard .shipTop{align-items:flex-start;flex-wrap:wrap}
+#dashboard .shipment .trackSteps{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));}
+#dashboard .trackStep{min-width:0;padding:12px 6px;font-size:13px}
+#dashboard .shipment p{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+
+/* parcel photos + unidentified */
+.customerPhotosBox,.amPublicSection .wrap,.amFeedbackSection .wrap{margin-top:24px}
+.customerPhotosBox{padding-top:20px;border-top:1px solid #e2ebf4}
+.amSectionHead{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}
+.amSectionHead h2,.amSectionHead h3{margin:4px 0 7px;color:#082b56}
+.amSectionHead p{margin:0;color:#687c91;line-height:1.8}
+.amKicker{font-size:11px;letter-spacing:1.8px;color:#087cf0;font-weight:900}
+.parcelPhotoGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.parcelPhotoCard{background:#fff;border:1px solid #dce8f3;border-radius:20px;overflow:hidden;box-shadow:0 10px 28px rgba(18,70,120,.07)}
+.parcelPhotoCard img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef5fb}
+.parcelPhotoMeta{padding:14px}
+.parcelPhotoMeta b{display:block;color:#082b56}
+.parcelPhotoMeta small{color:#6a7d91}
+.emptyState{grid-column:1/-1;padding:28px;text-align:center;background:#f7fbff;border:1px dashed #bed6ea;border-radius:18px;color:#678096}
+.amPublicSection{background:linear-gradient(180deg,#f7fbff,#eef8ff)}
+
+/* feedback */
+.feedbackGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.feedbackForm,.feedbackInfo{background:#fff;border:1px solid #dce8f3;border-radius:22px;padding:22px;box-shadow:0 12px 30px rgba(18,70,120,.06)}
+.feedbackStars{display:flex;gap:7px;direction:ltr;margin-bottom:14px}
+.feedbackStars button{border:0;background:transparent;color:#cbd5e1;font-size:34px;cursor:pointer;padding:0 2px}
+.feedbackStars button.selected{color:#f4b400}
+.feedbackForm textarea{width:100%;resize:vertical;padding:14px;min-height:120px}
+.feedbackSend{margin-top:12px;width:100%;border:0;padding:14px;border-radius:14px;font-weight:900;cursor:pointer}
+.feedbackInfo{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.feedbackIcon{font-size:48px}
+.feedbackInfo p{color:#687c91;line-height:1.8}
+
+/* tablet */
+@media (min-width:601px) and (max-width:1024px){
+  .wrap{padding-left:20px!important;padding-right:20px!important}
+  .heroGrid{grid-template-columns:1fr 1fr!important;gap:20px!important}
+  .hero h1,.heroGrid h1{font-size:42px!important}
+  .referenceHeroVisual.amHeroScene{height:390px!important;min-height:390px!important}
+  .cards{grid-template-columns:repeat(2,1fr)!important}
+  .services{grid-template-columns:repeat(3,1fr)!important}
+  .parcelPhotoGrid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* phone */
+@media(max-width:600px){
+  .wrap{padding-left:12px!important;padding-right:12px!important}
+  .hero{padding:18px 0 30px!important}
+  .heroGrid{display:flex!important;flex-direction:column!important;padding:18px 0 8px!important;gap:16px!important}
+  .heroGrid>div:first-child{padding:6px 0!important;text-align:center!important}
+  .hero h1,.heroGrid h1{font-size:32px!important;line-height:1.18!important;margin:8px 0 12px!important}
+  .hero p{font-size:14px!important;line-height:1.75!important;margin-bottom:16px!important}
+  .hero-copy-features{justify-content:center!important;margin:15px 0!important}
+  .heroActions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%;gap:8px!important}
+  .referenceHeroVisual.amHeroScene{width:100%!important;height:265px!important;min-height:265px!important;border-radius:25px!important}
+  .amPlane{font-size:47px;top:12%;left:10%}.amShip{font-size:54px;right:8%;bottom:12%}.amBoxes{font-size:23px;left:8%;bottom:18%}
+  .amHeroLogo{width:100px;height:72px;right:7%;top:9%;border-radius:16px;padding:8px}
+  .introMini{width:112px!important;height:66px!important;bottom:7%!important}
+  .cards{grid-template-columns:1fr 1fr!important;gap:9px!important;margin-top:-8px!important}
+  .cards .card{min-height:118px!important;padding:13px 9px!important;display:flex!important;flex-direction:column!important;text-align:center!important}
+  .services{grid-template-columns:1fr 1fr!important;gap:9px!important}
+  .services .card{min-height:135px!important;padding:13px 8px!important}
+  .section{padding:32px 0!important}
+  .section h2{font-size:26px!important}
+  #dashboard .panel{padding:14px!important}
+  #dashboard .stats{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  #dashboard .shipment{padding:13px!important}
+  #dashboard .shipment .trackSteps{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  #dashboard .trackStep{min-height:100px;display:flex;flex-direction:column;justify-content:center}
+  .parcelPhotoGrid{grid-template-columns:1fr 1fr;gap:9px}
+  .parcelPhotoMeta{padding:10px;font-size:13px}
+  .feedbackGrid{grid-template-columns:1fr}
+  .feedbackForm,.feedbackInfo{padding:16px;border-radius:18px}
+  .feedbackStars{justify-content:center}
+  .amSectionHead{align-items:start;flex-direction:column}
+}
+@media(max-width:380px){
+  .hero h1,.heroGrid h1{font-size:29px!important}
+  .heroActions{grid-template-columns:1fr!important}
+  .parcelPhotoGrid{grid-template-columns:1fr}
+}
+</style>
+
 </head>
   
 <body>
@@ -905,8 +1020,12 @@ h2{color:#0b2d58}
 <div class="hero-copy-features"><div class="hero-chip">✈️ گەیاندنی خێرا بە فڕۆکە</div><div class="hero-chip">🚢 گەیاندن بە دەریا</div><div class="hero-chip">🛡️ پارێزراو و متمانەپێکراو</div><div class="hero-chip">🎧 پشتیگیری 24/7</div></div>
 <div class="heroActions"><a class="btn waBtn" href="https://wa.me/9647507028898" target="_blank" rel="noopener">☏ پەیوەندی لە واتسئاپ</a><a id="heroTrackBtn" class="btn outlineBtn" href="#track">▣ شوێنکەوتنی بار</a></div>
 </div>
-<div class="visual referenceHeroVisual">
-  <img src="hero-shipping.jpg" alt="AM Shipping Express air and sea shipping" class="heroScene">
+<div class="visual referenceHeroVisual amHeroScene" aria-label="AM Shipping Express">
+  <div class="amRouteGlow"></div>
+  <div class="amPlane">✈️</div>
+  <div class="amShip">🚢</div>
+  <div class="amBoxes">📦 📦 📦</div>
+  <div class="amHeroLogo"><img src="logo.png" alt="AM Shipping Express"></div>
   <div class="introMini">
     <video autoplay muted loop playsinline>
       <source src="Am OUTRO.mp4" type="video/mp4">
@@ -1106,6 +1225,18 @@ onclick="logout()">
 <h3>📦 بارەکانی من</h3>
 
 <div id="myShipments"></div>
+
+<div class="customerPhotosBox">
+  <div class="amSectionHead">
+    <div>
+      <h3>📸 وێنەی بارەکانم لە کۆگای چین</h3>
+      <p>کاتێک بارەکەت دەگاتە ئۆفیسی چین، وێنەکەی لێرە دەبینیت.</p>
+    </div>
+  </div>
+  <div id="customerParcelPhotos" class="parcelPhotoGrid">
+    <div class="emptyState">هێشتا هیچ وێنەیەک بۆ بارەکانت زیاد نەکراوە.</div>
+  </div>
+</div>
 <div class="trackingTimeline">
   <h3>🚚 دۆخی گواستنەوە</h3>
 
@@ -1259,6 +1390,52 @@ AM Shipping Express
 
 </div>
 
+
+
+<section id="unidentified" class="section amPublicSection">
+  <div class="wrap">
+    <div class="amSectionHead">
+      <div>
+        <span class="amKicker">CHINA WAREHOUSE</span>
+        <h2>📦 بارە بێ‌ناو و نەناسراوەکان</h2>
+        <p>ئەو بارانەی دەگەنە ئۆفیسی چین و Shipping Mark یان ناوی خاوەنەکەیان ڕوون نییە، لێرە پیشان دەدرێن.</p>
+      </div>
+    </div>
+    <div id="unidentifiedParcels" class="parcelPhotoGrid">
+      <div class="emptyState">لە ئێستادا هیچ بارێکی بێ‌ناو تۆمار نەکراوە.</div>
+    </div>
+  </div>
+</section>
+
+<section id="feedback" class="section amFeedbackSection">
+  <div class="wrap">
+    <div class="amSectionHead">
+      <div>
+        <span class="amKicker">YOUR OPINION</span>
+        <h2>⭐ فیدباک و بۆچوونی کڕیار</h2>
+        <p>بۆچوونەکەت یارمەتیمان دەدات خزمەتگوزارییەکانمان باشتر بکەین.</p>
+      </div>
+    </div>
+    <div class="feedbackGrid">
+      <div class="feedbackForm">
+        <div id="feedbackStars" class="feedbackStars" aria-label="Rating">
+          <button type="button" onclick="setRating(1)">★</button>
+          <button type="button" onclick="setRating(2)">★</button>
+          <button type="button" onclick="setRating(3)">★</button>
+          <button type="button" onclick="setRating(4)">★</button>
+          <button type="button" onclick="setRating(5)">★</button>
+        </div>
+        <textarea id="feedbackText" rows="5" placeholder="بۆچوونەکەت لێرە بنووسە..."></textarea>
+        <button class="btn waBtn feedbackSend" type="button" onclick="sendFeedback()">ناردنی فیدباک لە WhatsApp</button>
+      </div>
+      <div class="feedbackInfo">
+        <div class="feedbackIcon">💬</div>
+        <h3>بۆچوونەکەت گرنگە</h3>
+        <p>نمرە بدە و پێمان بڵێ لە خزمەتگوزاری، گەیاندن و بەدواداچوونی بار چۆن ڕازیت.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="sponsors">
   <h2>سپۆنسەرەکانمان</h2>
@@ -1493,9 +1670,10 @@ phone:phone.value.trim(),
 password:password.value
 };
 
-if(mode==='register')
-body.name=document.getElementById('name').value.trim();
-body.email=document.getElementById('email').value.trim();
+if(mode==='register'){
+  body.name=document.getElementById('name').value.trim();
+  body.email=document.getElementById('email').value.trim();
+}
 
 let r=await fetch(
 '/api/'+mode,
@@ -1656,9 +1834,9 @@ await loadAdmin();
 function shipHTML(s){
 let step = 1;
 
-if (s.status === 'لە گواستنەوەدایە') step = 2;
-if (s.status === 'گەیشتە کوردستان') step = 3;
-if (s.status === 'تەسلیم کرا') step = 4;
+if (s.status === 'لە ڕێگادا' || s.status === 'لە گواستنەوەدایە') step = 2;
+if (s.status === 'گەیشتووەتە کوردستان' || s.status === 'گەیشتە کوردستان' || s.status === 'ئامادەی وەرگرتن') step = 3;
+if (s.status === 'وەرگیراوە' || s.status === 'تەسلیم کرا') step = 4;
   const steps = [
   'وەرگیرا لە چین',
   'لە گواستنەوەدایە',
@@ -2133,6 +2311,38 @@ function syncBell(notes){
   list.innerHTML=arr.length?arr.map(n=>'<div class="bellNote">🔔 '+safe(n.message)+'</div>').join(''):'هیچ ئاگادارکردنەوەیەکی نوێ نییە.';
 }
 
+</script>
+
+
+<script id="am-feedback-and-parcels">
+let amFeedbackRating = 5;
+function setRating(n){
+  amFeedbackRating = n;
+  document.querySelectorAll('#feedbackStars button').forEach((b,i)=>{
+    b.classList.toggle('selected', i < n);
+  });
+}
+function sendFeedback(){
+  const el = document.getElementById('feedbackText');
+  const msg = el ? el.value.trim() : '';
+  if(!msg){ alert('تکایە بۆچوونەکەت بنووسە.'); return; }
+  const text = `AM Shipping Express Feedback\nRating: ${amFeedbackRating}/5\n${msg}`;
+  window.open('https://wa.me/9647507028898?text=' + encodeURIComponent(text), '_blank');
+}
+function renderParcelPhotos(targetId, photos, emptyText){
+  const box = document.getElementById(targetId);
+  if(!box) return;
+  const arr = Array.isArray(photos) ? photos : [];
+  box.innerHTML = arr.length ? arr.map(p => `
+    <article class="parcelPhotoCard">
+      <img src="${safe(p.image_url || '')}" alt="Parcel photo" loading="lazy">
+      <div class="parcelPhotoMeta">
+        <b dir="ltr">${safe(p.tracking || p.customer_code || 'AM Shipping')}</b>
+        <small>${safe(p.note || '')}</small>
+      </div>
+    </article>`).join('') : `<div class="emptyState">${safe(emptyText)}</div>`;
+}
+setRating(5);
 </script>
 
 </body>
