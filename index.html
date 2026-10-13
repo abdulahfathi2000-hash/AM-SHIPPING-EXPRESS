@@ -994,6 +994,85 @@ body{background:linear-gradient(180deg,#eef8ff 0,#fff 35%,#f7fbff 100%)!importan
 @media(max-width:520px){#am-shein .sheinHeader{display:flex;flex-direction:column-reverse;align-items:stretch}#am-shein .sheinLogo{width:155px;align-self:center}#am-shein h2{font-size:26px}#am-shein .sheinContacts{flex-direction:column}#am-shein .sheinContacts a{text-align:center}#am-shein .sheinCard{padding:18px}#am-shein h3{font-size:21px}}
 
 </style>
+
+<style id="am-mobile-2026-patch">
+/* Mobile/tablet improvements: retain existing sections and JavaScript. */
+html{scroll-padding-top:16px;-webkit-text-size-adjust:100%}
+body{min-width:0;overflow-x:clip}
+img,video,iframe{max-width:100%}
+button,a,select,input,textarea{touch-action:manipulation}
+button{font-family:inherit}
+:where(.card,.panel,.shipment,.sponsorCard,.sheinCard){min-width:0}
+:where(.input,input,select,textarea){max-width:100%;font-size:16px!important}
+:where(.nav,.heroGrid,.track,.cards,.services,.stats,.adminForm,.foot,.routeWrap,.feedbackGrid,.sheinColumns){min-width:0}
+:where(.section,.hero,.cta){overflow-wrap:anywhere}
+:where(.btn,.bellBtn,.links a){min-height:42px}
+:focus-visible{outline:3px solid #087cf0;outline-offset:2px}
+@media(max-width:1024px){
+ .wrap{width:100%;max-width:100%;padding-inline:18px!important}
+ .nav{display:flex!important;flex-wrap:wrap;align-items:center;gap:12px!important;padding:12px 0!important}
+ .brand{flex:1 1 auto;min-width:0}
+ .links{order:5;flex:1 0 100%;display:flex!important;overflow-x:auto;flex-wrap:nowrap!important;gap:8px!important;justify-content:flex-start!important;scrollbar-width:none;padding:4px 0 8px}
+ .links a{flex:none;white-space:nowrap;padding:10px 12px!important;border-radius:10px;background:rgba(255,255,255,.08)}
+ .navActions{width:auto!important;display:flex!important;gap:8px}
+ .heroGrid{grid-template-columns:1fr!important;min-height:0!important;gap:20px!important}
+ .heroGrid>div:first-child{width:100%;max-width:100%;padding:12px 0!important}
+ .referenceHeroVisual.amHeroScene{max-width:100%;width:100%!important}
+ .services{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .track,.routeWrap,.feedbackGrid{grid-template-columns:1fr!important}
+ .foot{grid-template-columns:1fr!important}
+ .sponsorGrid{display:flex;flex-wrap:wrap;justify-content:center}
+ .sponsorCard{width:min(210px,46%)}
+ #am-shein .sheinColumns{grid-template-columns:1fr!important}
+}
+@media(max-width:600px){
+ .wrap{padding-inline:14px!important}
+ .nav{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:10px!important}
+ .brand{grid-column:1;grid-row:1}.brand img{width:46px!important;height:46px!important}
+ .language-switcher{grid-column:2;grid-row:1;margin:0!important}
+ .navActions{grid-column:1/-1;grid-row:2;justify-content:space-between;width:100%!important}
+ .navActions .btn{width:auto!important;min-width:125px}
+ .links{grid-column:1/-1;grid-row:3;order:initial;width:100%;margin:0}
+ .hero{padding:16px 0 34px!important}
+ .heroGrid{padding:12px 0!important}
+ .heroGrid>div:first-child{text-align:center!important}
+ .hero h1,.heroGrid h1{font-size:clamp(28px,8vw,36px)!important;line-height:1.25!important}
+ .hero p{font-size:14px!important;line-height:1.8!important}
+ .heroActions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .heroActions .btn{display:flex;justify-content:center;align-items:center;text-align:center;min-width:0;padding:12px 8px!important;font-size:12px!important}
+ .referenceHeroVisual.amHeroScene{height:260px!important;min-height:260px!important}
+ .cards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin-top:0!important}
+ .cards .card{min-height:120px!important;display:flex!important;flex-direction:column!important;text-align:center!important;padding:14px 9px!important;gap:5px}
+ .cards .card p{font-size:12px!important;grid-column:auto}
+ .services{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .services .card{min-height:140px!important;padding:14px 8px!important}
+ .section{padding:30px 0!important}
+ .section h2{font-size:clamp(23px,6vw,29px)!important}
+ .track{padding:10px!important;margin:18px 0!important}
+ .track .panel{padding:16px!important}
+ .stats,#dashboard .stats,.trustStats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .adminForm{grid-template-columns:1fr!important}
+ .modal{padding:12px;overflow-y:auto;align-items:flex-start}
+ .modalBox{margin:auto;padding:18px!important;max-height:calc(100dvh - 24px);overflow-y:auto}
+ .bellMenu{position:fixed!important;top:112px!important;left:12px!important;right:12px!important;width:auto!important;max-height:65dvh;overflow-y:auto}
+ .routeCard{padding:20px!important}
+ .parcelPhotoGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #am-shein{padding:18px 12px!important;margin-inline:0!important}
+ #am-shein .sheinHeader{display:flex!important;flex-direction:column-reverse!important;gap:14px!important}
+ #am-shein .sheinCard{padding:16px!important}
+ #am-shein .sheinContacts{flex-direction:column!important}
+ #am-shein .sheinContacts a{text-align:center}
+ .feedbackGrid{grid-template-columns:1fr!important}
+ .foot{gap:18px}
+}
+@media(max-width:360px){
+ .heroActions{grid-template-columns:1fr!important}
+ .cards,.services{gap:7px!important}
+ .cards .card,.services .card{padding:10px 6px!important}
+ .parcelPhotoGrid{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
   
 <body>
