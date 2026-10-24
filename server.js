@@ -14,6 +14,7 @@ const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 
 const app = express();
+app.set('trust proxy', 1);
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -29,11 +30,12 @@ store: new pgSession({
   pool: db,
   createTableIfMissing: true
 }),
-  secret: process.env.SESSION_SECRET || 'change-this-secret-in-production',
+  secret: process.env.SESSION_SECRET || (process.env.NODE_ENV === 'production' ? (()=>{throw new Error('SESSION_SECRET required')})() : 'local-development-only-secret'),
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
@@ -97,7 +99,11 @@ await db.query(`
   );
 
   if (existing.rows.length === 0) {
-    const h = bcrypt.hashSync('123456', 10);
+    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD;
+    if (!initialPassword || initialPassword.length < 12) {
+      console.warn('ADMIN_INITIAL_PASSWORD (12+ characters) is required to create the first admin');
+    } else {
+    const h = bcrypt.hashSync(initialPassword, 12);
 
     const result = await db.query(`
       INSERT INTO users
@@ -113,6 +119,7 @@ await db.query(`
     ]);
 
  
+    }
   }
 
   console.log('PostgreSQL database ready');
@@ -416,6 +423,28 @@ app.get('/api/track/:tracking', async (req, res) => {
   }
 });
 
+
+
+app.post('/api/admin/customers', auth, admin, async (req, res) => {
+  try {
+    const { name, phone, email } = req.body;
+    if (!String(name || '').trim() || !String(phone || '').trim())
+      return res.status(400).json({ error: 'ناو و ژمارەی مۆبایل پێویستن' });
+    const randomPassword = require('crypto').randomBytes(24).toString('hex');
+    const hash = await bcrypt.hash(randomPassword, 12);
+    const code = 'AM-' + require('crypto').randomBytes(5).toString('hex').toUpperCase();
+    const result = await db.query(
+      `INSERT INTO users(name,phone,email,password,customer_code,role)
+       VALUES($1,$2,$3,$4,$5,'customer')
+       RETURNING id,name,phone,customer_code,role`,
+      [String(name).trim(),String(phone).trim(),email || null,hash,code]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (e) {
+    if (e.code === '23505') return res.status(409).json({ error: 'ژمارە یان ئیمەیڵ دووبارەیە' });
+    console.error(e); res.status(500).json({ error: 'نەتوانرا کڕیار زیاد بکرێت' });
+  }
+});
 
 app.get('/api/admin/users', auth, admin, async (req, res) => {
   try {
