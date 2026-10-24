@@ -14,6 +14,7 @@ const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 
 const app = express();
+app.set('trust proxy', 1);
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -29,11 +30,12 @@ store: new pgSession({
   pool: db,
   createTableIfMissing: true
 }),
-  secret: process.env.SESSION_SECRET || 'change-this-secret-in-production',
+  secret: process.env.SESSION_SECRET || (process.env.NODE_ENV === 'production' ? (()=>{throw new Error('SESSION_SECRET required')})() : 'local-development-only-secret'),
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
@@ -97,7 +99,11 @@ await db.query(`
   );
 
   if (existing.rows.length === 0) {
-    const h = bcrypt.hashSync('123456', 10);
+    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD;
+    if (!initialPassword || initialPassword.length < 12) {
+      console.warn('ADMIN_INITIAL_PASSWORD (12+ characters) is required to create the first admin');
+    } else {
+    const h = bcrypt.hashSync(initialPassword, 12);
 
     const result = await db.query(`
       INSERT INTO users
@@ -113,6 +119,7 @@ await db.query(`
     ]);
 
  
+    }
   }
 
   console.log('PostgreSQL database ready');
@@ -155,7 +162,7 @@ app.post('/api/register', async (req, res) => {
     const result = await db.query(`
       INSERT INTO users
       (name, phone, email, password, customer_code)
-      VALUES ($1,$2,$3,$4$5)
+      VALUES ($1,$2,$3,$4,$5)
       RETURNING id
     `, [
       name,
@@ -229,49 +236,9 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.post('/api/forgot-password', async (req, res) => {
-  try {
-    const email = String(req.body.email || '').trim().toLowerCase();
-
-    const result = await db.query(
-      'SELECT * FROM users WHERE email=$1',
-      [email]
-    );
-
-    const user = result.rows[0];
-
-    if (!user) {
-      return res.status(404).json({
-        error: 'ئەم ئیمەیڵە تۆمار نەکراوە'
-      });
-    }
-
-    const newPassword = Math.random().toString(36).slice(-8);
-    const hashedPassword = bcrypt.hashSync(newPassword, 10);
-
-    await db.query(
-      'UPDATE users SET password=$1 WHERE id=$2',
-      [hashedPassword, user.id]
-    );
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'AM Shipping Express - Password Reset',
-      text: `وشەی نهێنی نوێی تۆ: ${newPassword}`
-    });
-
-    res.json({
-      ok: true,
-      message: 'وشەی نهێنی نوێ بۆ ئیمەیڵەکەت نێردرا'
-    });
-
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({
-      error: 'هەڵەیەک ڕوویدا'
-    });
-  }
+// Password reset by email disabled until a secure, expiring token flow is implemented.
+app.post('/api/forgot-password', (req, res) => {
+  res.status(503).json({ error: 'گۆڕینی وشەی نهێنی لە ڕێگەی ئیمەیڵەوە کاتییەک ناچالاکە. تکایە پەیوەندی بە پشتگیری بکە.' });
 });
 
 app.post('/api/logout', (req, res) =>
@@ -346,9 +313,9 @@ app.post('/api/change-password', auth, async (req, res) => {
     const currentPassword = String(req.body.currentPassword || '');
     const newPassword = String(req.body.newPassword || '');
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 12 || newPassword.length > 128) {
       return res.status(400).json({
-        error: 'وشەی نهێنی نوێ دەبێت لانیکەم 6 پیت بێت'
+        error: 'وشەی نهێنی نوێ دەبێت لە نێوان ١٢ و ١٢٨ نووسە بێت'
       });
     }
 
@@ -365,7 +332,7 @@ app.post('/api/change-password', auth, async (req, res) => {
       });
     }
 
-    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
 
     await db.query(
       'UPDATE users SET password=$1 WHERE id=$2',
@@ -416,6 +383,28 @@ app.get('/api/track/:tracking', async (req, res) => {
   }
 });
 
+
+
+app.post('/api/admin/customers', auth, admin, async (req, res) => {
+  try {
+    const { name, phone, email } = req.body;
+    if (!String(name || '').trim() || !String(phone || '').trim())
+      return res.status(400).json({ error: 'ناو و ژمارەی مۆبایل پێویستن' });
+    const randomPassword = require('crypto').randomBytes(24).toString('hex');
+    const hash = await bcrypt.hash(randomPassword, 12);
+    const code = 'AM-' + require('crypto').randomBytes(5).toString('hex').toUpperCase();
+    const result = await db.query(
+      `INSERT INTO users(name,phone,email,password,customer_code,role)
+       VALUES($1,$2,$3,$4,$5,'customer')
+       RETURNING id,name,phone,customer_code,role`,
+      [String(name).trim(),String(phone).trim(),email || null,hash,code]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (e) {
+    if (e.code === '23505') return res.status(409).json({ error: 'ژمارە یان ئیمەیڵ دووبارەیە' });
+    console.error(e); res.status(500).json({ error: 'نەتوانرا کڕیار زیاد بکرێت' });
+  }
+});
 
 app.get('/api/admin/users', auth, admin, async (req, res) => {
   try {

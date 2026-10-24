@@ -1315,6 +1315,20 @@ onclick="logout()">
 </div>
 
 
+<div class="panel" style="margin:20px 0;padding:20px;border:1px solid #dce7f2;border-radius:16px">
+  <h3>🔐 گۆڕینی وشەی نهێنی</h3>
+  <form id="amChangePasswordForm" autocomplete="off">
+    <label for="amCurrentPassword">وشەی نهێنی ئێستا</label>
+    <input class="input" type="password" id="amCurrentPassword" autocomplete="current-password" required>
+    <label for="amNewPassword">وشەی نهێنی نوێ (لانیکەم ١٢ نووسە)</label>
+    <input class="input" type="password" id="amNewPassword" minlength="12" maxlength="128" autocomplete="new-password" required>
+    <label for="amConfirmPassword">دووبارەکردنەوەی وشەی نهێنی نوێ</label>
+    <input class="input" type="password" id="amConfirmPassword" minlength="12" maxlength="128" autocomplete="new-password" required>
+    <button class="btn primary" type="submit" style="margin-top:14px">گۆڕینی وشەی نهێنی</button>
+    <p id="amPasswordFeedback" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
 <h3>📦 بارەکانی من</h3>
 
 <div id="myShipments"></div>
@@ -2455,6 +2469,29 @@ setRating(5);
   translate();
 })();
 
+</script>
+<script>
+(function(){
+  const form=document.getElementById('amChangePasswordForm');
+  if(!form)return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const feedback=document.getElementById('amPasswordFeedback');
+    const currentPassword=document.getElementById('amCurrentPassword').value;
+    const newPassword=document.getElementById('amNewPassword').value;
+    const confirm=document.getElementById('amConfirmPassword').value;
+    feedback.textContent='';
+    if(newPassword.length<12||newPassword.length>128||newPassword!==confirm){feedback.textContent='وشەی نهێنی نوێ دەبێت لانیکەم ١٢ نووسە بێت و دوو خانەکە وەک یەک بن.';return;}
+    const button=form.querySelector('button[type="submit"]');button.disabled=true;
+    try{
+      const response=await fetch('/api/change-password',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({currentPassword,newPassword})});
+      const data=await response.json();
+      feedback.textContent=response.ok?'وشەی نهێنی بە سەرکەوتوویی گۆڕدرا.':(data.error||'هەڵەیەک ڕوویدا');
+      if(response.ok)form.reset();
+    }catch(err){feedback.textContent='پەیوەندی بە سێرڤەرەوە سەرکەوتوو نەبوو.';}
+    finally{button.disabled=false;}
+  });
+})();
 </script>
 </body>
 </html>
